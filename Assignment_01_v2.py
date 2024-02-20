@@ -9,7 +9,7 @@ import numpy as np
 import math
 
 
-# In[98]:
+# In[2]:
 
 
 def getMinLocation(distance_matrix_l1_init:pd.DataFrame):
@@ -26,7 +26,7 @@ def getMinLocation(distance_matrix_l1_init:pd.DataFrame):
     return matrix2RowColMin
 
 
-# In[81]:
+# In[3]:
 
 
 def updateDistances (distanceMatrix:pd.DataFrame, minLocation):
@@ -44,38 +44,46 @@ def updateDistances (distanceMatrix:pd.DataFrame, minLocation):
     return distance_matrix_l1_init
 
 
-# In[109]:
+# In[4]:
 
 
 def removeMinDistanceRowCol(distanceMatrix:pd.DataFrame, minValueLocaiton):
-    distance_matrix_l1 = distanceMatrix.copy()
     lowerIndex = minValueLocaiton[0]
     upperIndex = minValueLocaiton[1]
-    colNames = distance_matrix_l1.columns
+    colNames = distanceMatrix.columns
     rowcolString1 = colNames[lowerIndex]
     rowcolString2 = colNames[upperIndex]
     colName1 = colNames[lowerIndex].replace('S','')
     colName2 = colNames[upperIndex].replace('S','')
     newRowColName = f"S{colName1}{colName2}"
+    
     # Remove columns
-    distance_matrix_l1.drop(rowcolString1, axis=1, inplace=True)
-    distance_matrix_l1.drop(rowcolString2, axis=1, inplace=True)
+    distanceMatrix.drop(rowcolString1, axis=1, inplace=True)
+    distanceMatrix.drop(rowcolString2, axis=1, inplace=True)
     # Remove rows
-    distance_matrix_l1.drop(rowcolString1, inplace=True)
-    distance_matrix_l1.drop(rowcolString2, inplace=True)
+    distanceMatrix.drop(rowcolString1, inplace=True)
+    distanceMatrix.drop(rowcolString2, inplace=True)
 
-    rowCombo =distance_matrix_l1.iloc[0]
+
+    # Filling row and col and index 0,0 with -9999
+    rowCombo =distanceMatrix.iloc[0]
     newDF = pd.DataFrame(rowCombo, index=[0])
-    distance_matrix_l1 = pd.concat([newDF, distance_matrix_l1])
-    rowArray  = np.zeros(distance_matrix_l1.shape[0])
-    rowArray[:] = np.nan
-    distance_matrix_l1.insert(0, newRowColName, rowArray)
-    distance_matrix_l1.index = distance_matrix_l1.columns
-    return distance_matrix_l1
+    distanceMatrix = pd.concat([newDF, distanceMatrix])
+    rowArray  = np.zeros(distanceMatrix.shape[0])
+    rowArray[:] = -9999
+    distanceMatrix.insert(0, newRowColName, rowArray)
+    distanceMatrix.iloc[0] = -9999
+    distanceMatrix.index = distanceMatrix.columns
+    
+    # Setting diagonal = 0
+    array = distanceMatrix.values
+    np.fill_diagonal(array, 0)
+    distanceMatrix_modified = pd.DataFrame(array, columns=distanceMatrix.columns, index=distanceMatrix.index)
+    return distanceMatrix_modified
     
 
 
-# In[58]:
+# In[5]:
 
 
 # From XSLX file read specific sheet name.
@@ -83,7 +91,7 @@ df = pd.read_excel("Hw1-words.xlsx", sheet_name='Proto-words')
 df
 
 
-# In[59]:
+# In[6]:
 
 
 maxRowsCount = df.shape[0]
@@ -92,7 +100,7 @@ keys = (list('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'))[:maxRowsCo
 keys
 
 
-# In[60]:
+# In[7]:
 
 
 dfKeyed = df.copy()
@@ -103,13 +111,13 @@ for col in df.columns:
     dfKeyed[col].replace(word2key, inplace=True)
 
 
-# In[61]:
+# In[8]:
 
 
 dfKeyed
 
 
-# In[62]:
+# In[9]:
 
 
 matrix_size = dfKeyed.shape[0]
@@ -121,7 +129,7 @@ print("Column and Row names",NameIndexed)
 
 # ### Setting row/col names
 
-# In[83]:
+# In[10]:
 
 
 distance_matrix = pd.DataFrame(index=range(df.shape[0]), columns=range(df.shape[0]))
@@ -129,7 +137,7 @@ distance_matrix = pd.DataFrame(distance_matrix, index=NameIndexed)
 distance_matrix.columns = NameIndexed
 
 
-# In[85]:
+# In[11]:
 
 
 min_value_location = []
@@ -149,7 +157,7 @@ for i in range (matrix_size):
 
 # ### <u>**Distance matrix from Proto words**</u>
 
-# In[96]:
+# In[12]:
 
 
 distance_matrix
@@ -157,7 +165,7 @@ distance_matrix
 
 # ### Renaming columns as S1..Sn & finding the row/col index of the minimum distance
 
-# In[87]:
+# In[13]:
 
 
 distance_matrix.columns = NameIndexed
@@ -167,7 +175,7 @@ print(f"Minimum distance row/col index==> {min_value_location}")
 print("Row==>", distance_matrix.columns[min_value_location[0]], "Col==>",distance_matrix.columns[min_value_location[1]] )
 
 
-# In[88]:
+# In[14]:
 
 
 newRowColName = f"S{lowerIndex+1}{upperIndex+1}"
@@ -175,7 +183,7 @@ newRowColName = f"S{lowerIndex+1}{upperIndex+1}"
 
 # ### Creating a copy of distance matrix for calculation of 2nd step and removing the rows and column associated with minimum row/col distance.
 
-# In[89]:
+# In[15]:
 
 
 distance_matrix_l1 = distance_matrix.copy()
@@ -189,7 +197,7 @@ distance_matrix_l1
 
 # ### Adding row and col at index 0,0 with with the row/col name.
 
-# In[90]:
+# In[16]:
 
 
 rowCombo =distance_matrix_l1.iloc[0]
@@ -201,7 +209,7 @@ rowArray[:] = np.nan
 distance_matrix_l1.insert(0, f"S{lowerIndex+1}{upperIndex+1}", rowArray)
 
 
-# In[91]:
+# In[17]:
 
 
 distance_matrix_l1
@@ -213,7 +221,7 @@ distance_matrix_l1
 
 
 
-# In[92]:
+# In[18]:
 
 
 indexNames = distance_matrix_l1.index.tolist()
@@ -224,33 +232,33 @@ distance_matrix_l1.index= indexNames
 # #### Constructed a matrix with new colum/row name corresponding to min distance combo
 # e.g. If min distance value is at S3 & S5; new col name will be S35
 
-# In[93]:
+# In[19]:
 
 
 distance_matrix_l1
 
 
-# In[94]:
+# In[20]:
 
 
 distance_matrix_l1_init = updateDistances(distance_matrix_l1, min_value_location)
 distance_matrix_l1_init
 
 
-# In[99]:
+# In[21]:
 
 
 matrix2RowColMin = getMinLocation(distance_matrix_l1_init)
 
 
-# In[100]:
+# In[22]:
 
 
 distance_matrix_l1_init2 = updateDistances(distance_matrix_l1_init, matrix2RowColMin)
 distance_matrix_l1_init2
 
 
-# In[110]:
+# In[23]:
 
 
 updatedMatrix = removeMinDistanceRowCol(distance_matrix_l1_init2, matrix2RowColMin)
