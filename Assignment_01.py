@@ -60,31 +60,15 @@ distance_matrix.shape
 
 min_value_location
 
-
-# In[158]:
-
-
 lowerIndex, upperIndex = min_value_location
 
-
-# In[205]:
-
-
 distance_matrix_l1 = distance_matrix.copy()
-
-
-# In[206]:
-
 
 distance_matrix_l1.drop(distance_matrix_l1.columns[upperIndex], axis=1, inplace=True)
 distance_matrix_l1.drop(distance_matrix_l1.columns[lowerIndex], axis=1, inplace=True)
 
 distance_matrix_l1.drop(distance_matrix_l1.index[upperIndex], inplace=True)
 distance_matrix_l1.drop(distance_matrix_l1.index[lowerIndex], inplace=True)
-
-
-# In[207]:
-
 
 # # Rename column 'B' to 'New_B' at index 1
 # distance_matrix_l1.rename(columns={distance_matrix_l1.columns[1]: f"S{lowerIndex}{upperIndex}"}, inplace=True)
@@ -94,130 +78,48 @@ distance_matrix_l1.drop(distance_matrix_l1.index[lowerIndex], inplace=True)
 # distance_matrix_l1.rename(index={distance_matrix_l1.index[1]: f"S{lowerIndex}{upperIndex}"}, inplace=True)
 # distance_matrix_l1.rename(index={distance_matrix_l1.index[1]: f"S{lowerIndex}{upperIndex}"}, inplace=True)
 
-
-# In[ ]:
-
-
-
-
-
-# In[208]:
-
-
 distance_matrix_l1
 
 rowCombo  = distance_matrix_l1.iloc[0]
 rowCombo.iloc[:] = np.nan
 
 
-# In[209]:
-
-
 # distance_matrix_l1.iloc[:, :] = np.nan
-
-
-# In[210]:
 
 
 distance_matrix_l1.insert(0, f"S{lowerIndex+1}{upperIndex+1}", rowCombo)
 
-
-# In[211]:
 distance_matrix_l1.rename(index={distance_matrix_l1.index[0]: f"S{lowerIndex+1}{upperIndex+1}"}, inplace=True)
 # distance_matrix_l1.index[0] = f"S{lowerIndex}{upperIndex}"
 
 distance_matrix_l1
 
-
-# In[212]:
-
-
 dfnew = pd.DataFrame(distance_matrix_l1.iloc[2], index=[0])
 
 dfnew
-# In[192]:
-
 
 distance_matrix_l1.shape
-
-
-# In[157]:
-
 
 new_distance_matrix = pd.DataFrame()
 drop_index = max(min_value_location)
 minIndex = min(min_value_location)
 
-
-# In[147]:
-
-
 drop_index
-
-
-# In[151]:
-
 
 distance_matrix_l1 = distance_matrix.copy()
 
 
-# In[152]:
-
-
 distance_matrix_l1.drop(distance_matrix_l1.columns[min_value_location], axis=1, inplace=True)
-
-
-# In[155]:
-
 
 distance_matrix_l1.drop(distance_matrix_l1.index[drop_index], inplace=True)
 
 
-# In[ ]:
-
-
-# 
-
-
-# In[156]:
-
 
 distance_matrix_l1
 
-
-# In[150]:
-
-
 distance_matrix_drop1 = distance_matrix.drop(distance_matrix.columns[drop_index], axis=1)
-
-
-# In[ ]:
-
 
 NameIndexed
 
-
-# In[ ]:
-
-
 distance_matrix.columns = NameIndexed
 distance_matrix = pd.DataFrame(distance_matrix, index=NameIndexed)
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-# new_distance_matrix = 
-
