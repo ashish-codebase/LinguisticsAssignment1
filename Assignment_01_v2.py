@@ -14,17 +14,19 @@ import numpy as np
 class Location:
     row:int
     col:int
-    def __init__(self, row=9999, col=9999) -> None:
+    minValue:float
+    def __init__(self, row=9999, col=9999, minValue=0.0) -> None:
         self.row=row
         self.col=col
+        self.minValue=minValue
     def text(self):
-        print(f"{self.row}, {self.col}")
+        print(f"R{self.row}, C{self.col},Value:{self.minValue}")
 
 
 
 def getMinLocation(distance_matrix_l1_init:pd.DataFrame):
     matrix2min = 9999
-    matrix2RowColMin=Location(9999,9999)
+    matrix2RowColMin=Location()
     matrixsize = distance_matrix_l1_init.shape[0]
     for i in range(matrixsize):
         for j in range(matrixsize):
@@ -146,18 +148,17 @@ distance_matrix.columns = NameIndexed
 # In[11]:
 
 
-min_value_location = Location()
+location = Location()
 min_value = 999999
 for i in range (matrix_size):
     for j in range (matrix_size):
         col=j
         row =i
-        row1 = df.iloc[row]
-        row2 = df.iloc[col]
-        distance = (row1 != row2).sum()
-        if min_value>distance and distance!=0:
-            min_value = distance
-            min_value_location = Location(row,col)        
+        val1 = df.iloc[row]
+        val2 = df.iloc[col]
+        distance = (val1 != val2).sum()
+        if location.minValue>distance and distance!=0:
+            location = Location(row,col,distance)        
         distance_matrix.iloc[row,col]=distance
 
 
@@ -176,9 +177,9 @@ distance_matrix
 
 distance_matrix.columns = NameIndexed
 distance_matrix.shape
-lowerIndex, upperIndex = (min_value_location.row, min_value_location.col)
-print(f"Minimum distance row/col index==> {min_value_location.text()}")
-print("Row==>", distance_matrix.columns[min_value_location.row], "Col==>",distance_matrix.columns[min_value_location.col] )
+lowerIndex, upperIndex = (location.row, location.col)
+print(f"Minimum distance row/col index==> {location.text()}")
+print("Row==>", distance_matrix.columns[location.row], "Col==>",distance_matrix.columns[location.col] )
 
 
 # In[14]:
@@ -236,7 +237,7 @@ distance_matrix_l1
 # In[19]:
 
 
-distance_matrix_l1_init = updateDistances(distance_matrix_l1, min_value_location)
+distance_matrix_l1_init = updateDistances(distance_matrix_l1, location)
 distance_matrix_l1_init
 
 
