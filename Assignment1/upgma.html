@@ -1,0 +1,1121 @@
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[147]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">lingpy</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">"Downloads/Hw1-words.xlsx"</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s1">'Proto-words'</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">'Unnamed: 0'</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[11]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Index([&#39;English&#39;, &#39;father&#39;, &#39;mother&#39;, &#39;one&#39;, &#39;eight&#39;, &#39;knee&#39;, &#39;nose&#39;, &#39;tongue&#39;,
+       &#39;dog&#39;, &#39;egg&#39;, &#39;smoke&#39;, &#39;snow&#39;, &#39;to burn&#39;, &#39;to bite&#39;, &#39;to sing&#39;,
+       &#39;to spit&#39;, &#39;dry&#39;],
+      dtype=&#39;object&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">'English'</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[13]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>father</th>
+      <th>mother</th>
+      <th>one</th>
+      <th>eight</th>
+      <th>knee</th>
+      <th>nose</th>
+      <th>tongue</th>
+      <th>dog</th>
+      <th>egg</th>
+      <th>smoke</th>
+      <th>snow</th>
+      <th>to burn</th>
+      <th>to bite</th>
+      <th>to sing</th>
+      <th>to spit</th>
+      <th>dry</th>
+    </tr>
+    <tr>
+      <th>English</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Erzya</th>
+      <td>*ićä</td>
+      <td>*ava</td>
+      <td>*ikte</td>
+      <td>*kakteksan</td>
+      <td>*polwe</td>
+      <td>*nere</td>
+      <td>*kele</td>
+      <td>*pene</td>
+      <td>*muna</td>
+      <td>*sawe</td>
+      <td>*lume</td>
+      <td>*korpe</td>
+      <td>*pure</td>
+      <td>*mura</td>
+      <td>*śil'ke</td>
+      <td>*kuśka</td>
+    </tr>
+    <tr>
+      <th>Finnish</th>
+      <td>*ićä</td>
+      <td>*emä</td>
+      <td>*ikte</td>
+      <td>*kakteksan</td>
+      <td>*polwe</td>
+      <td>*nenä</td>
+      <td>*kele</td>
+      <td>*pene</td>
+      <td>*muna</td>
+      <td>*sawe</td>
+      <td>*lume</td>
+      <td>*korpe</td>
+      <td>*pure</td>
+      <td>*laulu</td>
+      <td>*śil'ke</td>
+      <td>*kujwa</td>
+    </tr>
+    <tr>
+      <th>Hungarian</th>
+      <td>*ićä</td>
+      <td>*emä</td>
+      <td>*egy</td>
+      <td>*ńalɜ</td>
+      <td>*térd</td>
+      <td>*orr</td>
+      <td>*nyelv</td>
+      <td>*ämpɜ</td>
+      <td>*tojás</td>
+      <td>*pičɜ</td>
+      <td>*hó</td>
+      <td>*pilɜ</td>
+      <td>*harap</td>
+      <td>*énekel</td>
+      <td>*köp</td>
+      <td>*ϑasɜ</td>
+    </tr>
+    <tr>
+      <th>Mansi</th>
+      <td>*ićä</td>
+      <td>*emä</td>
+      <td>*ikte</td>
+      <td>*ńalɜ</td>
+      <td>*sāns</td>
+      <td>*nere</td>
+      <td>*kele</td>
+      <td>*ämpɜ</td>
+      <td>*muna</td>
+      <td>*pičɜ</td>
+      <td>*tūjt</td>
+      <td>*pilɜ</td>
+      <td>*pure</td>
+      <td>*mura</td>
+      <td>*śil'ke</td>
+      <td>*ϑasɜ</td>
+    </tr>
+    <tr>
+      <th>Mari (Meadow)</th>
+      <td>*ićä</td>
+      <td>*ava</td>
+      <td>*ikte</td>
+      <td>*kakteksan</td>
+      <td>*polwe</td>
+      <td>*nere</td>
+      <td>*jylme</td>
+      <td>*pene</td>
+      <td>*muna</td>
+      <td>*šikš</td>
+      <td>*lume</td>
+      <td>*äŋɜ</td>
+      <td>*pure</td>
+      <td>*mura</td>
+      <td>*śil'ke</td>
+      <td>*kuśka</td>
+    </tr>
+    <tr>
+      <th>Saami (Northern)</th>
+      <td>*ićä</td>
+      <td>*emä</td>
+      <td>*ikte</td>
+      <td>*kakteksan</td>
+      <td>*polwe</td>
+      <td>*nere</td>
+      <td>*kele</td>
+      <td>*pene</td>
+      <td>*muna</td>
+      <td>*sawe</td>
+      <td>*lume</td>
+      <td>*korpe</td>
+      <td>*pure</td>
+      <td>*laulu</td>
+      <td>*śil'ke</td>
+      <td>*kujwa</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[51]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[51]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>English</th>
+      <th>Erzya</th>
+      <th>Finnish</th>
+      <th>Hungarian</th>
+      <th>Mansi</th>
+      <th>Mari (Meadow)</th>
+      <th>Saami (Northern)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>father</th>
+      <td>*ićä</td>
+      <td>*ićä</td>
+      <td>*ićä</td>
+      <td>*ićä</td>
+      <td>*ićä</td>
+      <td>*ićä</td>
+    </tr>
+    <tr>
+      <th>mother</th>
+      <td>*ava</td>
+      <td>*emä</td>
+      <td>*emä</td>
+      <td>*emä</td>
+      <td>*ava</td>
+      <td>*emä</td>
+    </tr>
+    <tr>
+      <th>one</th>
+      <td>*ikte</td>
+      <td>*ikte</td>
+      <td>*egy</td>
+      <td>*ikte</td>
+      <td>*ikte</td>
+      <td>*ikte</td>
+    </tr>
+    <tr>
+      <th>eight</th>
+      <td>*kakteksan</td>
+      <td>*kakteksan</td>
+      <td>*ńalɜ</td>
+      <td>*ńalɜ</td>
+      <td>*kakteksan</td>
+      <td>*kakteksan</td>
+    </tr>
+    <tr>
+      <th>knee</th>
+      <td>*polwe</td>
+      <td>*polwe</td>
+      <td>*térd</td>
+      <td>*sāns</td>
+      <td>*polwe</td>
+      <td>*polwe</td>
+    </tr>
+    <tr>
+      <th>nose</th>
+      <td>*nere</td>
+      <td>*nenä</td>
+      <td>*orr</td>
+      <td>*nere</td>
+      <td>*nere</td>
+      <td>*nere</td>
+    </tr>
+    <tr>
+      <th>tongue</th>
+      <td>*kele</td>
+      <td>*kele</td>
+      <td>*nyelv</td>
+      <td>*kele</td>
+      <td>*jylme</td>
+      <td>*kele</td>
+    </tr>
+    <tr>
+      <th>dog</th>
+      <td>*pene</td>
+      <td>*pene</td>
+      <td>*ämpɜ</td>
+      <td>*ämpɜ</td>
+      <td>*pene</td>
+      <td>*pene</td>
+    </tr>
+    <tr>
+      <th>egg</th>
+      <td>*muna</td>
+      <td>*muna</td>
+      <td>*tojás</td>
+      <td>*muna</td>
+      <td>*muna</td>
+      <td>*muna</td>
+    </tr>
+    <tr>
+      <th>smoke</th>
+      <td>*sawe</td>
+      <td>*sawe</td>
+      <td>*pičɜ</td>
+      <td>*pičɜ</td>
+      <td>*šikš</td>
+      <td>*sawe</td>
+    </tr>
+    <tr>
+      <th>snow</th>
+      <td>*lume</td>
+      <td>*lume</td>
+      <td>*hó</td>
+      <td>*tūjt</td>
+      <td>*lume</td>
+      <td>*lume</td>
+    </tr>
+    <tr>
+      <th>to burn</th>
+      <td>*korpe</td>
+      <td>*korpe</td>
+      <td>*pilɜ</td>
+      <td>*pilɜ</td>
+      <td>*äŋɜ</td>
+      <td>*korpe</td>
+    </tr>
+    <tr>
+      <th>to bite</th>
+      <td>*pure</td>
+      <td>*pure</td>
+      <td>*harap</td>
+      <td>*pure</td>
+      <td>*pure</td>
+      <td>*pure</td>
+    </tr>
+    <tr>
+      <th>to sing</th>
+      <td>*mura</td>
+      <td>*laulu</td>
+      <td>*énekel</td>
+      <td>*mura</td>
+      <td>*mura</td>
+      <td>*laulu</td>
+    </tr>
+    <tr>
+      <th>to spit</th>
+      <td>*śil'ke</td>
+      <td>*śil'ke</td>
+      <td>*köp</td>
+      <td>*śil'ke</td>
+      <td>*śil'ke</td>
+      <td>*śil'ke</td>
+    </tr>
+    <tr>
+      <th>dry</th>
+      <td>*kuśka</td>
+      <td>*kujwa</td>
+      <td>*ϑasɜ</td>
+      <td>*ϑasɜ</td>
+      <td>*kuśka</td>
+      <td>*kujwa</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">T</span>
+<span class="n">matrix_first</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">names</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)):</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)):</span> 
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="n">row</span><span class="p">]])</span><span class="o">-</span><span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="n">col</span><span class="p">]])))</span>
+    <span class="n">matrix_first</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[118]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">main_matrix</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">matrix_first</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+<span class="n">main_matrix</span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[118]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Erzya</th>
+      <th>Finnish</th>
+      <th>Hungarian</th>
+      <th>Mansi</th>
+      <th>Mari (Meadow)</th>
+      <th>Saami (Northern)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Erzya</th>
+      <td>0</td>
+      <td>4</td>
+      <td>15</td>
+      <td>8</td>
+      <td>3</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>Finnish</th>
+      <td>4</td>
+      <td>0</td>
+      <td>14</td>
+      <td>9</td>
+      <td>7</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Hungarian</th>
+      <td>15</td>
+      <td>14</td>
+      <td>0</td>
+      <td>9</td>
+      <td>15</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>Mansi</th>
+      <td>8</td>
+      <td>9</td>
+      <td>9</td>
+      <td>0</td>
+      <td>9</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>Mari (Meadow)</th>
+      <td>3</td>
+      <td>7</td>
+      <td>15</td>
+      <td>9</td>
+      <td>0</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>Saami (Northern)</th>
+      <td>3</td>
+      <td>1</td>
+      <td>14</td>
+      <td>8</td>
+      <td>6</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[200]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sub_martix</span> <span class="o">=</span> <span class="n">main_matrix</span>
+<span class="n">tree_data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">sub_itr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">main_matrix</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">combine_col</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">col_names</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">lowest_no</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">sub_row</span> <span class="ow">in</span> <span class="n">sub_martix</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">sub_col</span> <span class="ow">in</span> <span class="n">sub_martix</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">small_value</span> <span class="o">=</span> <span class="n">sub_martix</span><span class="p">[[</span><span class="n">sub_col</span><span class="p">]]</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="n">sub_row</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+            <span class="k">if</span> <span class="n">small_value</span><span class="o">==</span><span class="mi">0</span> <span class="ow">or</span> <span class="n">small_value</span><span class="o">==</span><span class="n">lowest_no</span> <span class="ow">or</span> <span class="n">small_value</span><span class="o">==</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">lowest_no</span> <span class="o">=</span> <span class="n">small_value</span>
+                <span class="n">combine_col</span> <span class="o">=</span> <span class="p">[</span><span class="n">sub_row</span><span class="p">,</span> <span class="n">sub_col</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Combine columns </span><span class="si">{</span><span class="n">combine_col</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+    <span class="n">tree_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">combine_col</span><span class="p">))</span>
+    <span class="n">sub_martix_columns</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">combine_col</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">list</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">combine_col</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">tuple</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">ele</span> <span class="ow">in</span> <span class="n">combine_col</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">col_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ele</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">col_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">combine_col</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">combine_col</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">list</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">combine_col</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">tuple</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">ele</span> <span class="ow">in</span> <span class="n">combine_col</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">col_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ele</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">col_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">combine_col</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">sub_martix_columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">main_matrix</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span><span class="o">-</span><span class="nb">set</span><span class="p">(</span><span class="n">col_names</span><span class="p">))</span>
+    <span class="n">sub_martix_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">col_names</span><span class="p">))</span>
+<span class="c1">#     for sub_names in sub_martix.columns:</span>
+<span class="c1">#         if sub_names in col_names:</span>
+<span class="c1">#             if tuple(col_names) in sub_martix_columns:</span>
+<span class="c1">#                 pass</span>
+<span class="c1">#             else:</span>
+<span class="c1">#                 sub_martix_columns.append(tuple(col_names))</span>
+<span class="c1">#         else:</span>
+<span class="c1">#             sub_martix_columns.append(sub_names)</span>
+<span class="c1">#     print(sub_martix_columns)</span>
+    
+    <span class="n">submatrix_first</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">sub_martix_columns</span><span class="p">:</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">sub_martix_columns</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">(</span><span class="n">col</span><span class="p">):</span>
+                <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">tuple</span><span class="p">:</span>
+                    <span class="n">row</span> <span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">tuple</span><span class="p">:</span>
+                    <span class="n">col</span> <span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">main_matrix</span><span class="p">[</span><span class="n">row</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">main_matrix</span><span class="p">[</span><span class="n">row</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+                <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="n">submatrix_first</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+    <span class="n">sub_martix</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">submatrix_first</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">sub_martix_columns</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">sub_martix_columns</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">sub_martix</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Combine columns [&#39;Saami (Northern)&#39;, &#39;Mari (Meadow)&#39;]
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea "><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Erzya</th>
+      <th>Hungarian</th>
+      <th>Mansi</th>
+      <th>Finnish</th>
+      <th>(Saami (Northern), Mari (Meadow))</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Erzya</th>
+      <td>0.0</td>
+      <td>15.0</td>
+      <td>8.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>Hungarian</th>
+      <td>15.0</td>
+      <td>0.0</td>
+      <td>9.0</td>
+      <td>14.0</td>
+      <td>14.5</td>
+    </tr>
+    <tr>
+      <th>Mansi</th>
+      <td>8.0</td>
+      <td>9.0</td>
+      <td>0.0</td>
+      <td>9.0</td>
+      <td>8.5</td>
+    </tr>
+    <tr>
+      <th>Finnish</th>
+      <td>4.0</td>
+      <td>14.0</td>
+      <td>9.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>(Saami (Northern), Mari (Meadow))</th>
+      <td>3.0</td>
+      <td>14.5</td>
+      <td>8.5</td>
+      <td>4.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Combine columns [(&#39;Saami (Northern)&#39;, &#39;Mari (Meadow)&#39;), &#39;Finnish&#39;]
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea "><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Erzya</th>
+      <th>Hungarian</th>
+      <th>Mansi</th>
+      <th>(Saami (Northern), Mari (Meadow), Finnish)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Erzya</th>
+      <td>0.000000</td>
+      <td>15.000000</td>
+      <td>8.000000</td>
+      <td>3.333333</td>
+    </tr>
+    <tr>
+      <th>Hungarian</th>
+      <td>15.000000</td>
+      <td>0.000000</td>
+      <td>9.000000</td>
+      <td>14.333333</td>
+    </tr>
+    <tr>
+      <th>Mansi</th>
+      <td>8.000000</td>
+      <td>9.000000</td>
+      <td>0.000000</td>
+      <td>8.666667</td>
+    </tr>
+    <tr>
+      <th>(Saami (Northern), Mari (Meadow), Finnish)</th>
+      <td>3.333333</td>
+      <td>14.333333</td>
+      <td>8.666667</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Combine columns [(&#39;Saami (Northern)&#39;, &#39;Mari (Meadow)&#39;, &#39;Finnish&#39;), &#39;Mansi&#39;]
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea "><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Erzya</th>
+      <th>Hungarian</th>
+      <th>(Saami (Northern), Mari (Meadow), Finnish, Mansi)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Erzya</th>
+      <td>0.0</td>
+      <td>15.0</td>
+      <td>4.5</td>
+    </tr>
+    <tr>
+      <th>Hungarian</th>
+      <td>15.0</td>
+      <td>0.0</td>
+      <td>13.0</td>
+    </tr>
+    <tr>
+      <th>(Saami (Northern), Mari (Meadow), Finnish, Mansi)</th>
+      <td>4.5</td>
+      <td>13.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Combine columns [(&#39;Saami (Northern)&#39;, &#39;Mari (Meadow)&#39;, &#39;Finnish&#39;, &#39;Mansi&#39;), &#39;Hungarian&#39;]
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea "><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Erzya</th>
+      <th>(Saami (Northern), Mari (Meadow), Finnish, Mansi, Hungarian)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Erzya</th>
+      <td>0.0</td>
+      <td>6.6</td>
+    </tr>
+    <tr>
+      <th>(Saami (Northern), Mari (Meadow), Finnish, Mansi, Hungarian)</th>
+      <td>6.6</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[201]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">sub_tree</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tree_data</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">branch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tree_data</span><span class="p">[</span><span class="n">sub_tree</span><span class="p">])):</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">tree_data</span><span class="p">[</span><span class="n">sub_tree</span><span class="p">][</span><span class="n">branch</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">tuple</span><span class="p">:</span>
+            <span class="n">tree_data</span><span class="p">[</span><span class="n">sub_tree</span><span class="p">][</span><span class="n">branch</span><span class="p">]</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">tree_data</span><span class="p">[</span><span class="n">sub_tree</span><span class="p">][</span><span class="n">branch</span><span class="p">])</span>
+            
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[202]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tree_data</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[202]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[[&#39;Saami (Northern)&#39;, &#39;Mari (Meadow)&#39;],
+ [[&#39;Saami (Northern)&#39;, &#39;Mari (Meadow)&#39;], &#39;Finnish&#39;],
+ [[&#39;Saami (Northern)&#39;, &#39;Mari (Meadow)&#39;, &#39;Finnish&#39;], &#39;Mansi&#39;],
+ [[&#39;Saami (Northern)&#39;, &#39;Mari (Meadow)&#39;, &#39;Finnish&#39;, &#39;Mansi&#39;], &#39;Hungarian&#39;]]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[273]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.</span><span class="p">,</span><span class="mf">1.</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span>
+       <span class="p">[</span><span class="mf">6.</span><span class="p">,</span><span class="mf">2.</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span><span class="mf">7.</span><span class="p">],</span>
+       <span class="p">[</span><span class="mf">7.</span><span class="p">,</span><span class="mf">3.</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mf">8.</span><span class="p">],</span>
+                <span class="p">[</span><span class="mf">8.</span><span class="p">,</span><span class="mf">4.</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span><span class="mf">9.</span><span class="p">],</span>
+       <span class="p">[</span><span class="mf">9.</span><span class="p">,</span><span class="mf">5.</span><span class="p">,</span><span class="mi">500</span><span class="p">,</span><span class="mf">10.</span><span class="p">]])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[282]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.cluster</span> <span class="kn">import</span> <span class="n">hierarchy</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+ 
+<span class="n">dn</span> <span class="o">=</span> <span class="n">hierarchy</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">(</span>
+    <span class="n">tree</span><span class="p">,</span> <span class="n">above_threshold_color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">leaf_rotation</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color_threshold</span><span class="o">=</span><span class="mf">.9</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">'Saami (Northern)'</span><span class="p">,</span> <span class="s1">'Mari (Meadow)'</span><span class="p">,</span> <span class="s1">'Finnish'</span><span class="p">,</span> <span class="s1">'Mansi'</span><span class="p">,</span> <span class="s1">'Hungarian'</span><span class="p">,</span> <span class="s1">'Erzya'</span><span class="p">,])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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hIQEfPXVV+jduzc2bNhwK8pmGj58OAYPHmz+nZiYqJAieUO3MORmZb8FJiK3zE0HFDc3N5QtWxYAUKtWLfz444+YMmUKunTpgqtXr+LSpUsOtShxcXEICQkBAISEhGDHjh0O72fv5WNfJjfu7u5wd3e/2aKK/DVvbwUUEREL+tfjoGRmZiItLQ21atWCq6sr1qxZYz53+PBhxMTEIDo6GgAQHR2Nffv24ezZs+Yyq1atgq+vLyIjI/9tUUREROQOcVM1KMOHD0fr1q0RHh6OpKQkzJs3D+vXr8eKFSvg5+eHxx9/HIMHD0ZAQAB8fX0xYMAAREdHIyoqCgDQokULREZGomfPnpgwYQJiY2MxYsQI9OvXTzUkIiIiYrqpgHL27Fn06tULZ86cgZ+fH6pWrYoVK1agefPmAIC3334bTk5O6NixI9LS0tCyZUtMmzbNfL2zszOWLl2Kvn37Ijo6Gt7e3ujduzdee+21vF0rERERKdD+9Tgo+UHjoMi/UkDGCxCL0u8n72hb5p0Csi1v5vytuXhERETEchRQRERExHIUUERERMRyFFBERETEchRQRERExHIUUERERMRyFFBERETEchRQRERExHIUUERERMRyFFBERETEchRQRERExHIUUERERMRyFFBERETEchRQRERExHIUUERERMRyFFBERETEchRQRERExHIUUERERMRyFFBERETEchRQRERExHIUUERERMRyFFBERETEchRQRERExHIUUERERMRyFFBERETEchRQRERExHIUUERERMRyFFBERETEchRQRERExHIUUERERMRyFFBERETEchRQRERExHIUUERERMRyFFBERETEchRQRERExHIUUERERMRyFFBERETEchRQRERExHIUUERERMRyFFBERETEchRQRERExHIUUERERMRyFFBERETEchRQRERExHIUUERERMRyFFBERETEchRQRERExHIUUERERMRyFFBERETEchRQRERExHIUUERERMRyFFBERETEchRQRERExHIUUERERMRyFFBERETEchRQRERExHIUUERERMRyFFBERETEchRQRERExHJuKqCMGzcOderUgY+PD4KCgtCuXTscPnzYYZnU1FT069cPgYGBKFSoEDp27Ii4uDiHZWJiYtCmTRt4eXkhKCgIQ4cORUZGxr9fGxEREbkj3FRA2bBhA/r164dt27Zh1apVSE9PR4sWLZCSkmIuM2jQICxZsgQLFizAhg0bcPr0aXTo0MF83mazoU2bNrh69Sq2bNmC2bNnY9asWRg5cmTerZWIiIgUaAZJ/tMXnzt3DkFBQdiwYQMaN26MhIQEFC1aFPPmzcPDDz8MADh06BAqVqyIrVu3IioqCsuWLUPbtm1x+vRpBAcHAwBmzJiBYcOG4dy5c3Bzc/vLz01MTISfnx8SEhLg6+v7T4svAEACly/ndylur5QU4P9/e4iLA7y987c8t5uXF2AY+V2KgislBShUKOvfycl33+8nL2lb5p0Csi1v5vzt8m8+KCEhAQAQEBAAANi1axfS09PRrFkzc5mIiAiEh4ebAWXr1q2oUqWKGU4AoGXLlujbty/279+PGjVq5PictLQ0pKWlOayg5AESaNgQ2LIlv0uSf7L9Du8aDRoAP/ygkCIilvaPG8lmZmbiueeeQ4MGDVC5cmUAQGxsLNzc3ODv7++wbHBwMGJjY81lgq85Kdj/ti9zrXHjxsHPz8/8Lyws7J8WW7K7fPnuDid3q82b775aMxEpcP5xDUq/fv3wyy+/YNOmTXlZnlwNHz4cgwcPNv9OTExUSMlrd+OtjrtN9ltbIiIW948CSv/+/bF06VJs3LgRJUqUMB8PCQnB1atXcenSJYdalLi4OISEhJjL7Nixw+H97L187Mtcy93dHe7u7v+kqPJ3eXsroIiIiGXc1C0ekujfvz+++eYbrF27FqVKlXJ4vlatWnB1dcWaNWvMxw4fPoyYmBhER0cDAKKjo7Fv3z6cPXvWXGbVqlXw9fVFZGTkv1kXERERuUPcVA1Kv379MG/ePCxevBg+Pj5mmxE/Pz94enrCz88Pjz/+OAYPHoyAgAD4+vpiwIABiI6ORlRUFACgRYsWiIyMRM+ePTFhwgTExsZixIgR6Nevn2pJREREBMBNBpTp06cDAO69916Hxz/55BP897//BQC8/fbbcHJyQseOHZGWloaWLVti2rRp5rLOzs5YunQp+vbti+joaHh7e6N379547bXX/t2aiIiIyB3jX42Dkl80DkoeKSD95iWP6PvOG9qOeUfbMu8UkG15M+dvzcUjIiIilqOAIiIiIpajgCIiIiKWo4AiIiIilqOAIiIiIpajgCIiIiKWo4AiIiIilqOAIiIiIpajgCIiIiKWo4AiIiIilqOAIiIiIpajgCIiIiKWo4AiIiIilqOAIiIiIpajgCIiIiKWo4AiIiIilqOAIiIiIpajgCIiIiKWo4AiIiIilqOAIiIiIpajgCIiIiKWo4AiIiIilqOAIiIiIpajgCIiIiKWo4AiIiIilqOAIiIiIpajgCIiIiKWo4AiIiIilqOAIiIiIpajgCIiIiKWo4AiIiIilqOAIiIiIpajgCIiIiKWo4AiIiIilqOAIiIiIpajgCIiIiKWo4AiIiIilqOAIiIiIpajgCIiIiKWo4AiIiIilqOAIiIiIpajgCIiIiKWo4AiIiIilqOAIiIiIpajgCIiIiKWo4AiIiIilqOAIiIiIpajgCIiIiKWo4AiIiIilqOAIiIiIpajgCIiIiKWo4AiIiIilqOAIiIiIpajgCIiIiKWo4AiIiIilqOAIiIiIpajgCIiIiKWo4AiIiIilqOAIiIiIpajgCIiIiKWc9MBZePGjXjggQcQGhoKwzCwaNEih+dJYuTIkShWrBg8PT3RrFkzHDlyxGGZCxcuoEePHvD19YW/vz8ef/xxJCcn/6sVERERkTvHTQeUlJQUVKtWDVOnTs31+QkTJuCdd97BjBkzsH37dnh7e6Nly5ZITU01l+nRowf279+PVatWYenSpdi4cSOeeuqpf74WIiIickdxudkXtG7dGq1bt871OZKYPHkyRowYgYceeggAMGfOHAQHB2PRokXo2rUrDh48iOXLl+PHH39E7dq1AQDvvvsu7r//fkycOBGhoaH/YnUshAQuX87vUtxYSkru/7YiLy/AMPK7FCIicpvcdEC5kWPHjiE2NhbNmjUzH/Pz80O9evWwdetWdO3aFVu3boW/v78ZTgCgWbNmcHJywvbt29G+ffsc75uWloa0tDTz78TExLwsdt4jgYYNgS1b8rskf19wcH6X4MYaNAB++EEhRUTkLpGnjWRjY2MBAMHXnOyCg4PN52JjYxEUFOTwvIuLCwICAsxlrjVu3Dj4+fmZ/4WFheVlsfPe5csFK5wUBJs3W79GSkRE8kye1qDcKsOHD8fgwYPNvxMTE60fUuzi4gBv7/wuRcGVkmL92h0REclzeRpQQkJCAABxcXEoVqyY+XhcXByqV69uLnP27FmH12VkZODChQvm66/l7u4Od3f3vCzq7ePtrYAiIiJyk/L0Fk+pUqUQEhKCNWvWmI8lJiZi+/btiI6OBgBER0fj0qVL2LVrl7nM2rVrkZmZiXr16uVlcURERKSAuukalOTkZPz222/m38eOHcOePXsQEBCA8PBwPPfccxgzZgzKlSuHUqVK4eWXX0ZoaCjatWsHAKhYsSJatWqFJ598EjNmzEB6ejr69++Prl273jk9eERERORfuemAsnPnTtx3333m3/a2Ib1798asWbPwwgsvICUlBU899RQuXbqEhg0bYvny5fDw8DBfM3fuXPTv3x9NmzaFk5MTOnbsiHfeeScPVkdERETuBAZJ5nchblZiYiL8/PyQkJAAX1/f/C5OTikpQKFCWf9OTlYblH9D2zLvaFvmDW3HvKNtmXcKyLa8mfO35uIRERERy1FAEREREctRQBERERHLUUARERERy1FAEREREctRQBERERHLUUARERERy1FAEREREctRQBERERHLUUARERERy1FAEREREctRQBERERHLUUARERERy1FAEREREctRQBERERHLUUARERERy1FAEREREctRQBERERHLUUARERERy1FAEREREctRQBERERHLUUARERERy1FAEREREctRQBERERHLUUARERERy1FAEREREctRQBERERHLUUARERERy1FAEREREctRQBERERHLUUARERERy1FAEREREctRQBERERHLUUARERERy1FAEREREctRQBERERHLUUARERERy1FAEREREctRQBERERHLUUARERERy1FAEREREctRQBERERHLUUARERERy1FAEREREctRQBERERHLUUARERERy1FAEREREctRQBERERHLUUARERERy1FAEREREctRQBERERHLUUARERERy1FAEREREctRQBERERHLUUARERERy1FAEREREctRQBERERHLUUARERERy1FAEREREcvJ14AydepU3HPPPfDw8EC9evWwY8eO/CyOiIiIWES+BZQvv/wSgwcPxiuvvILdu3ejWrVqaNmyJc6ePZtfRRIRERGLyLeAMmnSJDz55JN49NFHERkZiRkzZsDLywszZ87MryKJiIiIRbjkx4devXoVu3btwvDhw83HnJyc0KxZM2zdujXH8mlpaUhLSzP/TkhIAAAkJibe+sL+Eykpf/47MRGw2fKvLAWdtmXe0bbMG9qOeUfbMu8UkG1pP2+T/Mtl8yWgxMfHw2azITg42OHx4OBgHDp0KMfy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Bx98MMfy9erVY4UKFfj777+TJK9evUqSnD17NosXL86JEyc6PH7s2DG6u7tz8eLFt3I1/rXU1FQWL16cTzzxhLlNslfprl69ms2bN2dQUBArVqzI7t278+TJk+bzTz/9NAMCAszq4ObNm/PZZ5/l3r17GRUVxQEDBnDbtm10d3c3l8luzpw59PPz42+//XZL1s9ms5m3mq61bds2GobB0aNHk8z67rp168ZKlSo5LHftbYyDBw8yICCAgwcP5uXLl0n+uc2ef/55hoWFce/evXm9KnkqMzPzL28/2my2XKv3z549y4iICPbv35/t2rXjE088wW+//ZZTpkyhr68vO3TowGPHjpEk3333XYaHh9MwDBYqVIglSpSgYRj09PTkyJEjzffs27cvg4KCeOLEiTxdzzuNzWbL8b2dO3eO586dM/+eOnUq69Spw3feecfcr86cOcMHHniAlSpVMpc9f/4869Spw+rVq5vHLfvtkffee48BAQGcN2+ew+P5Lbff5MaNG9mlSxe2atWKZ86c4ddff01vb28+8MADDstt376dTk5OXLNmjflex48fZ2RkJJs0acKjR4+a+/PYsWPp6up63Y4Qt4MCSgF3s/dGY2Ji+Pzzz7NixYr8z3/+wxdeeMHhnvgbb7xBFxcXvvzyy+b723fcsWPH0tfXlzNnziT5ZxA5c+YMa9asydatWzuU6/z58/T19TXbp1hlB88u+0k1NDSUe/bscXh+48aNLFasGOvXr8/Ro0eze/fudHJyYpUqVbhp0yaS5J49e1ivXj3Wr1+fFy5c4JgxY1ilShWS5KJFi2gYBt99910ahmEeGLJ/9gcffMAyZcpw3759ebpeuf02Ll686PD3iRMneN9997FatWoks8LayJEjaRgGx48fzw8//JAjRozgG2+8wQ8++ICHDh0iSaakpLBz586sUKGCeQKwf95PP/1EwzA4efJkS37nubEHU/vB/0bBxb6eQUFBDA0N5X/+8x8eP37cfH7ixIn09/fnnDlzSGb16Prll1+4fv16Ll68mN9++y0PHjzIli1b0tfXl7t37yZJfv755yxWrBjHjBljlkX+dG3ITkpK4sWLFxkXF0d/f38+/fTT5nM///wzd+7c6bD8nj17+NBDD9EwDC5ZssT8jocMGUI/Pz8uXbqU5J898H7++WfWrl2b7dq1I5m/30duoezQ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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
